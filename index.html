@@ -97,15 +97,15 @@ textarea{min-height:90px;resize:vertical}
 </section>
 
 <section id="events" class="page">
-<button class="back" onclick="showPage('home')">← На главную</button>
-<h2>Афиша</h2>
-<div class="card">
-  <h3>Афиша Concept Integrator</h3>
-  <p>Все актуальные мероприятия — в нашем Telegram-канале.</p>
- <button onclick="window.open('https://t.me/concept_int/713', '_blank')">
-  Открыть афишу
-</button>
-</div>
+  <button class="back" onclick="showPage('home')">← На главную</button>
+  <h2>Афиша</h2>
+  <div class="card">
+    <h3>Афиша Concept Integrator</h3>
+    <p>Все актуальные мероприятия — в нашем Telegram-канале.</p>
+    <button onclick="openEventsChannel()">
+      Открыть афишу
+    </button>
+  </div>
 </section>
 
 </main>
@@ -122,7 +122,13 @@ window.scrollTo(0,0);
 function contact(){
 window.open("https://wa.me/"+phone,"_blank");
 }
-
+function openEventsChannel() {
+  if (window.Telegram && window.Telegram.WebApp) {
+    window.Telegram.WebApp.openTelegramLink('https://t.me/concept_int/713');
+  } else {
+    window.location.href = 'https://t.me/concept_int/713';
+  }
+}
 function sendForm(event,title){
 event.preventDefault();
 const data=new FormData(event.target);
