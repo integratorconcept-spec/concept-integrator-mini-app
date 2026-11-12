@@ -15,7 +15,7 @@ body {
 header { text-align: center; margin: 45px 0; }
 .logo { font-size: 27px; letter-spacing: 3px; }
 .subtitle { color: #888; font-size: 13px; margin-top: 10px; }
-.menu, .form, .events { max-width: 480px; margin: auto; }
+.menu, .form, .events, .catalog { max-width: 480px; margin: auto; }
 .menu { display: grid; gap: 15px; }
 a, .menu button {
   display: block; width: 100%; padding: 22px 18px;
@@ -41,6 +41,14 @@ textarea { min-height: 100px; resize: vertical; }
   color: white; font-size: 16px; cursor: pointer;
 }
 .back { display: inline-block; margin: 0 0 20px; color: #777; font-size: 14px; cursor: pointer; }
+.project-card {
+  border: 1px solid #ddd; border-radius: 12px;
+  padding: 18px; margin-bottom: 14px;
+}
+.project-card h3 { margin: 0 0 10px; font-size: 18px; }
+.project-card p { font-size: 14px; line-height: 1.5; color: #555; }
+.project-card a { padding: 0; border: 0; color: #333; text-decoration: underline; font-size: 14px; }
+.empty { color: #888; line-height: 1.6; font-size: 14px; }
 footer { text-align: center; color: #aaa; font-size: 12px; margin: 55px 0 20px; }
 </style>
 </head>
@@ -55,6 +63,11 @@ footer { text-align: center; color: #aaa; font-size: 12px; margin: 55px 0 20px; 
   <button onclick="showSection('project')">
     Добавить проект
     <span>Предложить свой проект сообществу</span>
+  </button>
+
+  <button onclick="showSection('catalog')">
+    Каталог проектов
+    <span>Проекты участников сообщества</span>
   </button>
 
   <button onclick="showSection('events')">
@@ -104,6 +117,12 @@ footer { text-align: center; color: #aaa; font-size: 12px; margin: 55px 0 20px; 
   </form>
 </section>
 
+<section id="catalog" class="catalog hidden">
+  <div class="back" onclick="showSection('home')">← На главную</div>
+  <h2>Каталог проектов</h2>
+  <div id="projectList"></div>
+</section>
+
 <section id="events" class="events hidden">
   <div class="back" onclick="showSection('home')">← На главную</div>
   <h2>Афиша событий</h2>
@@ -141,11 +160,61 @@ footer { text-align: center; color: #aaa; font-size: 12px; margin: 55px 0 20px; 
 <footer>Concept Integrator</footer>
 
 <script>
+// Сюда добавляются только одобренные проекты
+const approvedProjects = [
+  // Пример:
+  // {
+  //   name: "Название проекта",
+  //   category: "Бизнес",
+  //   description: "Описание проекта",
+  //   offer: "Специальное предложение",
+  //   contact: "https://t.me/example",
+  //   link: "https://example.com"
+  // }
+];
+
+function renderProjects() {
+  const list = document.getElementById('projectList');
+
+  if (approvedProjects.length === 0) {
+    list.innerHTML = '<p class="empty">Каталог пока пополняется. Скоро здесь появятся проекты участников Concept Integrator.</p>';
+    return;
+  }
+
+  list.innerHTML = approvedProjects.map(p => `
+    <article class="project-card">
+      <h3>${escapeHTML(p.name)}</h3>
+      <p>${escapeHTML(p.category)}</p>
+      <p>${escapeHTML(p.description)}</p>
+      <p><strong>Предложение участникам:</strong><br>${escapeHTML(p.offer)}</p>
+      ${p.contact ? `<p><a href="${safeURL(p.contact)}" target="_blank" rel="noopener">Связаться с проектом</a></p>` : ''}
+      ${p.link ? `<p><a href="${safeURL(p.link)}" target="_blank" rel="noopener">Сайт или социальные сети</a></p>` : ''}
+    </article>
+  `).join('');
+}
+
+function escapeHTML(value) {
+  return String(value || '').replace(/[&<>"']/g, c => ({
+    '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
+  })[c]);
+}
+
+function safeURL(value) {
+  try {
+    const url = new URL(value);
+    return ['http:', 'https:', 'mailto:', 'tel:'].includes(url.protocol) ? url.href : '#';
+  } catch {
+    return '#';
+  }
+}
+
 function showSection(section) {
-  ['home', 'project', 'events'].forEach(id => {
+  ['home', 'project', 'catalog', 'events'].forEach(id => {
     document.getElementById(id).classList.add('hidden');
   });
   document.getElementById(section).classList.remove('hidden');
+
+  if (section === 'catalog') renderProjects();
   window.scrollTo(0, 0);
 }
 
@@ -177,6 +246,8 @@ function sendForm(event, type) {
   const url = 'https://wa.me/66909058705?text=' + encodeURIComponent(message);
   window.open(url, '_blank');
 }
+
+renderProjects();
 </script>
 
 </body>
