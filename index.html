@@ -10,7 +10,7 @@
 
 body {
   margin: 0;
-  padding: 28px 20px;
+  padding: 25px 20px;
   background: #fff;
   color: #222;
   font-family: Arial, sans-serif;
@@ -18,13 +18,12 @@ body {
 
 header {
   text-align: center;
-  margin: 55px 0 45px;
+  margin: 45px 0;
 }
 
 .logo {
   font-size: 27px;
   letter-spacing: 3px;
-  font-weight: 500;
 }
 
 .subtitle {
@@ -33,35 +32,88 @@ header {
   margin-top: 10px;
 }
 
-.menu {
-  display: grid;
-  gap: 16px;
+.menu, .form, .events {
   max-width: 480px;
   margin: auto;
 }
 
-a {
+.menu { display: grid; gap: 15px; }
+
+a, .menu button {
   display: block;
-  padding: 25px 20px;
+  width: 100%;
+  padding: 22px 18px;
   border: 1px solid #ddd;
   border-radius: 12px;
+  background: white;
   color: #222;
+  text-align: left;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 17px;
+  cursor: pointer;
 }
 
-a span {
+a span, .menu button span {
   display: block;
   color: #888;
   font-size: 13px;
   margin-top: 8px;
 }
 
+.hidden { display: none; }
+
+h2 {
+  font-size: 22px;
+  font-weight: 500;
+  margin: 15px 0 22px;
+}
+
+label {
+  display: block;
+  font-size: 14px;
+  margin: 17px 0 7px;
+}
+
+input, textarea, select {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: Arial, sans-serif;
+  background: white;
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.submit {
+  width: 100%;
+  padding: 16px;
+  margin-top: 22px;
+  border: 0;
+  border-radius: 9px;
+  background: #222;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.back {
+  display: inline-block;
+  margin: 0 0 20px;
+  color: #777;
+  font-size: 14px;
+  cursor: pointer;
+}
+
 footer {
   text-align: center;
   color: #aaa;
   font-size: 12px;
-  margin-top: 60px;
+  margin: 55px 0 20px;
 }
 </style>
 </head>
@@ -73,28 +125,94 @@ footer {
   <div class="subtitle">Сообщество проектов и людей</div>
 </header>
 
-<main class="menu">
-
-  <a href="#add-project">
+<main id="home" class="menu">
+  <button onclick="showSection('project')">
     Добавить проект
     <span>Предложить свой проект сообществу</span>
-  </a>
+  </button>
 
-  <a href="#events">
+  <button onclick="showSection('events')">
     Афиша событий
     <span>Встречи, мероприятия и события</span>
-  </a>
+  </button>
 
-  <a href="https://wa.me/66909058705" target="_blank" rel="noopener">
+  <a href="https://wa.me/66909058705" target="_blank">
     Связаться в WhatsApp
     <span>Написать команде Concept Integrator</span>
   </a>
-
 </main>
 
-<footer>
-  Concept Integrator
-</footer>
+<section id="project" class="form hidden">
+  <div class="back" onclick="showSection('home')">← На главную</div>
+  <h2>Добавить проект</h2>
+
+  <form onsubmit="sendProject(event)">
+    <label>Название проекта *</label>
+    <input name="project" required placeholder="Название">
+
+    <label>Категория *</label>
+    <select name="category" required>
+      <option value="">Выберите категорию</option>
+      <option>Бизнес</option>
+      <option>Искусство и культура</option>
+      <option>Образование</option>
+      <option>Красота и здоровье</option>
+      <option>Недвижимость</option>
+      <option>Услуги</option>
+      <option>Другое</option>
+    </select>
+
+    <label>Описание проекта *</label>
+    <textarea name="description" required placeholder="Расскажите о проекте"></textarea>
+
+    <label>Контакт: WhatsApp или Telegram *</label>
+    <input name="contact" required placeholder="Номер или ссылка">
+
+    <label>Сайт или социальные сети</label>
+    <input name="links" placeholder="Ссылка">
+
+    <label>Специальное предложение для участников Concept Integrator *</label>
+    <textarea name="offer" required placeholder="Что вы предлагаете участникам сообщества?"></textarea>
+
+    <button class="submit" type="submit">Отправить заявку</button>
+  </form>
+</section>
+
+<section id="events" class="events hidden">
+  <div class="back" onclick="showSection('home')">← На главную</div>
+  <h2>Афиша событий</h2>
+  <p>Скоро здесь появятся мероприятия сообщества.</p>
+</section>
+
+<footer>Concept Integrator</footer>
+
+<script>
+function showSection(section) {
+  document.getElementById('home').classList.add('hidden');
+  document.getElementById('project').classList.add('hidden');
+  document.getElementById('events').classList.add('hidden');
+  document.getElementById(section).classList.remove('hidden');
+  window.scrollTo(0, 0);
+}
+
+function sendProject(event) {
+  event.preventDefault();
+
+  const data = new FormData(event.target);
+
+  const message =
+    "Новая заявка на добавление проекта Concept Integrator\n\n" +
+    "Название: " + data.get("project") + "\n" +
+    "Категория: " + data.get("category") + "\n" +
+    "Описание: " + data.get("description") + "\n" +
+    "Контакт: " + data.get("contact") + "\n" +
+    "Сайт и соцсети: " + (data.get("links") || "Не указаны") + "\n" +
+    "Специальное предложение: " + data.get("offer");
+
+  const url = "https://wa.me/66909058705?text=" + encodeURIComponent(message);
+  window.open(url, "_blank");
+}
+</script>
 
 </body>
 </html>
