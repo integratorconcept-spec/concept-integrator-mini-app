@@ -102,9 +102,9 @@ textarea{min-height:90px;resize:vertical}
   <div class="card">
     <h3>Афиша Concept Integrator</h3>
     <p>Все актуальные мероприятия — в нашем Telegram-канале.</p>
-<a href="https://t.me/concept_int/22" style="display:block;text-align:center;padding:16px;border:1px solid #222;color:#222;text-decoration:none;margin-top:10px;">
+<button onclick="openEventsChannel()">
   Открыть афишу
-</a>
+</button>
   </div>
 </section>
 
@@ -124,11 +124,15 @@ window.open("https://wa.me/"+phone,"_blank");
 }
 function openEventsChannel() {
   const tg = window.Telegram && window.Telegram.WebApp;
+  const url = 'https://t.me/concept_int/22';
 
   if (tg) {
-    tg.openLink('https://t.me/concept_int/713');
+    tg.openTelegramLink(url);
+    setTimeout(() => {
+      tg.close();
+    }, 500);
   } else {
-    window.location.href = 'https://t.me/concept_int/713';
+    window.location.href = url;
   }
 }
 function sendForm(event,title){
