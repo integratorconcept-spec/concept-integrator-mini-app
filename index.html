@@ -3,252 +3,130 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Concept Integrator</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CONCEPT INTEGRATOR</title>
 <style>
-* { box-sizing: border-box; }
-body {
-  margin: 0; padding: 25px 20px;
-  background: #fff; color: #222;
-  font-family: Arial, sans-serif;
-}
-header { text-align: center; margin: 45px 0; }
-.logo { font-size: 27px; letter-spacing: 3px; }
-.subtitle { color: #888; font-size: 13px; margin-top: 10px; }
-.menu, .form, .events, .catalog { max-width: 480px; margin: auto; }
-.menu { display: grid; gap: 15px; }
-a, .menu button {
-  display: block; width: 100%; padding: 22px 18px;
-  border: 1px solid #ddd; border-radius: 12px;
-  background: white; color: #222; text-align: left;
-  text-decoration: none; font-size: 17px; cursor: pointer;
-}
-a span, .menu button span {
-  display: block; color: #888; font-size: 13px; margin-top: 8px;
-}
-.hidden { display: none; }
-h2 { font-size: 22px; font-weight: 500; margin: 15px 0 22px; }
-label { display: block; font-size: 14px; margin: 17px 0 7px; }
-input, textarea, select {
-  width: 100%; padding: 13px; border: 1px solid #ddd;
-  border-radius: 8px; font-size: 15px;
-  font-family: Arial, sans-serif; background: white;
-}
-textarea { min-height: 100px; resize: vertical; }
-.submit {
-  width: 100%; padding: 16px; margin-top: 22px;
-  border: 0; border-radius: 9px; background: #222;
-  color: white; font-size: 16px; cursor: pointer;
-}
-.back { display: inline-block; margin: 0 0 20px; color: #777; font-size: 14px; cursor: pointer; }
-.project-card {
-  border: 1px solid #ddd; border-radius: 12px;
-  padding: 18px; margin-bottom: 14px;
-}
-.project-card h3 { margin: 0 0 10px; font-size: 18px; }
-.project-card p { font-size: 14px; line-height: 1.5; color: #555; }
-.project-card a { padding: 0; border: 0; color: #333; text-decoration: underline; font-size: 14px; }
-.empty { color: #888; line-height: 1.6; font-size: 14px; }
-footer { text-align: center; color: #aaa; font-size: 12px; margin: 55px 0 20px; }
+*{box-sizing:border-box}
+body{margin:0;background:#fff;color:#222;font-family:Arial,sans-serif}
+main{max-width:520px;margin:auto;padding:30px 22px}
+h1{text-align:center;font-size:25px;letter-spacing:2px;margin:25px 0 12px}
+h2{font-size:22px;margin:20px 0}
+.subtitle{text-align:center;color:#777;margin-bottom:35px}
+.page{display:none}
+.page.active{display:block}
+button{width:100%;padding:16px;margin:8px 0;border:1px solid #222;background:white;color:#222;font-size:16px;cursor:pointer}
+button:hover{background:#222;color:white}
+.back{border:0;text-align:left;padding:8px 0;color:#777}
+label{display:block;margin:17px 0 7px;font-size:14px}
+input,textarea,select{width:100%;padding:13px;border:1px solid #ccc;font-size:15px;background:white}
+textarea{min-height:90px;resize:vertical}
+.submit{background:#222;color:white;margin-top:25px}
+.note{font-size:14px;color:#777;line-height:1.6}
+.event{border:1px solid #ddd;padding:16px;margin:14px 0}
+.event h3{margin:0 0 10px;font-size:18px}
+.event p{font-size:14px;line-height:1.5}
 </style>
 </head>
 <body>
+<main>
 
-<header>
-  <div class="logo">CONCEPT INTEGRATOR</div>
-  <div class="subtitle">Сообщество проектов и людей</div>
-</header>
+<section id="home" class="page active">
+<h1>CONCEPT INTEGRATOR</h1>
+<p class="subtitle">COMMUNITY · PROJECTS · EVENTS</p>
+<button onclick="showPage('project')">Добавить проект</button>
+<button onclick="showPage('eventForm')">Добавить ивент</button>
+<button onclick="showPage('events')">Афиша</button>
+<button onclick="contact()">Связаться с нами</button>
+</section>
 
-<main id="home" class="menu">
-  <button onclick="showSection('project')">
-    Добавить проект
-    <span>Предложить свой проект сообществу</span>
-  </button>
+<section id="project" class="page">
+<button class="back" onclick="showPage('home')">← На главную</button>
+<h2>Добавить проект</h2>
+<p class="note">Заполните заявку. После проверки и одобрения проект может быть опубликован в Telegram-канале Concept Integrator.</p>
+<form onsubmit="sendForm(event,'ЗАЯВКА НА ДОБАВЛЕНИЕ ПРОЕКТА')">
+<label>Название проекта *</label>
+<input name="Название проекта" required>
+<label>Категория *</label>
+<select name="Категория" required>
+<option value="">Выберите категорию</option>
+<option>Искусство и культура</option>
+<option>Образование</option>
+<option>Бизнес</option>
+<option>Красота и здоровье</option>
+<option>Спорт и активность</option>
+<option>Другое</option>
+</select>
+<label>Описание проекта *</label>
+<textarea name="Описание" required></textarea>
+<label>Специальное предложение для участников Concept Integrator *</label>
+<textarea name="Специальное предложение" required></textarea>
+<label>WhatsApp</label>
+<input name="WhatsApp">
+<label>Telegram</label>
+<input name="Telegram">
+<label>Сайт или социальные сети</label>
+<input name="Ссылки">
+<button class="submit" type="submit">Отправить заявку</button>
+</form>
+</section>
 
-  <button onclick="showSection('catalog')">
-    Каталог проектов
-    <span>Проекты участников сообщества</span>
-  </button>
+<section id="eventForm" class="page">
+<button class="back" onclick="showPage('home')">← На главную</button>
+<h2>Добавить ивент</h2>
+<p class="note">Отправьте информацию о мероприятии. После проверки и одобрения оно появится в афише.</p>
+<form onsubmit="sendForm(event,'ЗАЯВКА НА ДОБАВЛЕНИЕ ИВЕНТА')">
+<label>Название мероприятия *</label>
+<input name="Название мероприятия" required>
+<label>Дата *</label>
+<input type="date" name="Дата" required>
+<label>Время *</label>
+<input type="time" name="Время" required>
+<label>Место проведения *</label>
+<input name="Место" required>
+<label>Описание *</label>
+<textarea name="Описание" required></textarea>
+<label>Стоимость участия</label>
+<input name="Стоимость">
+<label>Контакт организатора *</label>
+<input name="Контакт" required>
+<label>Ссылка на афишу или изображение</label>
+<input name="Ссылка на изображение">
+<button class="submit" type="submit">Отправить заявку</button>
+</form>
+</section>
 
-  <button onclick="showSection('events')">
-    Афиша событий
-    <span>Встречи, мероприятия и события</span>
-  </button>
+<section id="events" class="page">
+<button class="back" onclick="showPage('home')">← На главную</button>
+<h2>Афиша</h2>
+<div id="eventList">
+<p class="note">Одобренные мероприятия будут появляться здесь.</p>
+</div>
+</section>
 
-  <a href="https://wa.me/66909058705" target="_blank">
-    Связаться в WhatsApp
-    <span>Написать команде Concept Integrator</span>
-  </a>
 </main>
 
-<section id="project" class="form hidden">
-  <div class="back" onclick="showSection('home')">← На главную</div>
-  <h2>Добавить проект</h2>
-
-  <form onsubmit="sendForm(event, 'project')">
-    <label>Название проекта *</label>
-    <input name="project" required placeholder="Название">
-
-    <label>Категория *</label>
-    <select name="category" required>
-      <option value="">Выберите категорию</option>
-      <option>Бизнес</option>
-      <option>Искусство и культура</option>
-      <option>Образование</option>
-      <option>Красота и здоровье</option>
-      <option>Недвижимость</option>
-      <option>Услуги</option>
-      <option>Другое</option>
-    </select>
-
-    <label>Описание проекта *</label>
-    <textarea name="description" required></textarea>
-
-    <label>Контакт: WhatsApp или Telegram *</label>
-    <input name="contact" required placeholder="Номер или ссылка">
-
-    <label>Сайт или социальные сети</label>
-    <input name="links" placeholder="Ссылка">
-
-    <label>Специальное предложение для участников Concept Integrator *</label>
-    <textarea name="offer" required></textarea>
-
-    <button class="submit" type="submit">Отправить заявку</button>
-  </form>
-</section>
-
-<section id="catalog" class="catalog hidden">
-  <div class="back" onclick="showSection('home')">← На главную</div>
-  <h2>Каталог проектов</h2>
-  <div id="projectList"></div>
-</section>
-
-<section id="events" class="events hidden">
-  <div class="back" onclick="showSection('home')">← На главную</div>
-  <h2>Афиша событий</h2>
-  <p>Предложите своё мероприятие для публикации в афише Concept Integrator.</p>
-
-  <form onsubmit="sendForm(event, 'event')">
-    <label>Название события *</label>
-    <input name="eventName" required placeholder="Название мероприятия">
-
-    <label>Дата *</label>
-    <input name="date" type="date" required>
-
-    <label>Время *</label>
-    <input name="time" type="time" required>
-
-    <label>Место проведения *</label>
-    <input name="place" required placeholder="Название и адрес">
-
-    <label>Описание события *</label>
-    <textarea name="eventDescription" required></textarea>
-
-    <label>Стоимость участия *</label>
-    <input name="price" required placeholder="Например, 1 500 THB">
-
-    <label>Контакт организатора: WhatsApp или Telegram *</label>
-    <input name="eventContact" required placeholder="Номер или ссылка">
-
-    <label>Ссылка на фотографию или афишу</label>
-    <input name="imageLink" placeholder="Ссылка на изображение">
-
-    <button class="submit" type="submit">Отправить событие на проверку</button>
-  </form>
-</section>
-
-<footer>Concept Integrator</footer>
-
 <script>
-// Сюда добавляются только одобренные проекты
-const approvedProjects = [
-  // Пример:
-  // {
-  //   name: "Название проекта",
-  //   category: "Бизнес",
-  //   description: "Описание проекта",
-  //   offer: "Специальное предложение",
-  //   contact: "https://t.me/example",
-  //   link: "https://example.com"
-  // }
-];
+const phone="66909058705";
 
-function renderProjects() {
-  const list = document.getElementById('projectList');
-
-  if (approvedProjects.length === 0) {
-    list.innerHTML = '<p class="empty">Каталог пока пополняется. Скоро здесь появятся проекты участников Concept Integrator.</p>';
-    return;
-  }
-
-  list.innerHTML = approvedProjects.map(p => `
-    <article class="project-card">
-      <h3>${escapeHTML(p.name)}</h3>
-      <p>${escapeHTML(p.category)}</p>
-      <p>${escapeHTML(p.description)}</p>
-      <p><strong>Предложение участникам:</strong><br>${escapeHTML(p.offer)}</p>
-      ${p.contact ? `<p><a href="${safeURL(p.contact)}" target="_blank" rel="noopener">Связаться с проектом</a></p>` : ''}
-      ${p.link ? `<p><a href="${safeURL(p.link)}" target="_blank" rel="noopener">Сайт или социальные сети</a></p>` : ''}
-    </article>
-  `).join('');
+function showPage(id){
+document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+document.getElementById(id).classList.add("active");
+window.scrollTo(0,0);
 }
 
-function escapeHTML(value) {
-  return String(value || '').replace(/[&<>"']/g, c => ({
-    '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
-  })[c]);
+function contact(){
+window.open("https://wa.me/"+phone,"_blank");
 }
 
-function safeURL(value) {
-  try {
-    const url = new URL(value);
-    return ['http:', 'https:', 'mailto:', 'tel:'].includes(url.protocol) ? url.href : '#';
-  } catch {
-    return '#';
-  }
+function sendForm(event,title){
+event.preventDefault();
+const data=new FormData(event.target);
+let message=title+"\n\n";
+for(const [key,value] of data.entries()){
+message+=key+": "+value+"\n";
 }
-
-function showSection(section) {
-  ['home', 'project', 'catalog', 'events'].forEach(id => {
-    document.getElementById(id).classList.add('hidden');
-  });
-  document.getElementById(section).classList.remove('hidden');
-
-  if (section === 'catalog') renderProjects();
-  window.scrollTo(0, 0);
+window.open("https://wa.me/"+phone+"?text="+encodeURIComponent(message),"_blank");
 }
-
-function sendForm(event, type) {
-  event.preventDefault();
-  const data = new FormData(event.target);
-  let message = '';
-
-  if (type === 'project') {
-    message = 'НОВАЯ ЗАЯВКА — ПРОЕКТ\n\n' +
-      'Название: ' + data.get('project') + '\n' +
-      'Категория: ' + data.get('category') + '\n' +
-      'Описание: ' + data.get('description') + '\n' +
-      'Контакт: ' + data.get('contact') + '\n' +
-      'Сайт и соцсети: ' + (data.get('links') || 'Не указаны') + '\n' +
-      'Специальное предложение: ' + data.get('offer');
-  } else {
-    message = 'НОВАЯ ЗАЯВКА — СОБЫТИЕ\n\n' +
-      'Название: ' + data.get('eventName') + '\n' +
-      'Дата: ' + data.get('date') + '\n' +
-      'Время: ' + data.get('time') + '\n' +
-      'Место: ' + data.get('place') + '\n' +
-      'Описание: ' + data.get('eventDescription') + '\n' +
-      'Стоимость: ' + data.get('price') + '\n' +
-      'Контакт: ' + data.get('eventContact') + '\n' +
-      'Фото или афиша: ' + (data.get('imageLink') || 'Не указана');
-  }
-
-  const url = 'https://wa.me/66909058705?text=' + encodeURIComponent(message);
-  window.open(url, '_blank');
-}
-
-renderProjects();
 </script>
-
 </body>
 </html>
