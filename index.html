@@ -1,193 +1,100 @@
+
 <!DOCTYPE html>
-
 <html lang="ru">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<meta name="theme-color" content="#f5f2eb">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Concept Integrator</title>
-
 <style>
-
 * { box-sizing: border-box; }
 
-body { margin: 0; background: #f5f2eb; color: #292923; font-family: Arial, sans-serif; }
+body {
+  margin: 0;
+  padding: 28px 20px;
+  background: #fff;
+  color: #222;
+  font-family: Arial, sans-serif;
+}
 
-main { max-width: 480px; margin: auto; padding: 30px 22px 50px; }
+header {
+  text-align: center;
+  margin: 55px 0 45px;
+}
 
-.brand { font-size: 12px; letter-spacing: 3px; color: #817a6d; }
+.logo {
+  font-size: 27px;
+  letter-spacing: 3px;
+  font-weight: 500;
+}
 
-h1 { font-family: Georgia, serif; font-size: 39px; font-weight: normal; line-height: 1.15; margin-top: 45px; }
+.subtitle {
+  color: #888;
+  font-size: 13px;
+  margin-top: 10px;
+}
 
-h2 { font-family: Georgia, serif; font-size: 24px; font-weight: normal; }
+.menu {
+  display: grid;
+  gap: 16px;
+  max-width: 480px;
+  margin: auto;
+}
 
-.subtitle { color: #777267; line-height: 1.6; margin-bottom: 30px; }
+a {
+  display: block;
+  padding: 25px 20px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  color: #222;
+  text-decoration: none;
+  font-size: 18px;
+}
 
-.card { background: white; padding: 23px; margin-top: 17px; border: 1px solid #e8e3d9; }
+a span {
+  display: block;
+  color: #888;
+  font-size: 13px;
+  margin-top: 8px;
+}
 
-.card p { color: #777267; line-height: 1.5; }
-
-button { background: #292923; color: white; border: 0; padding: 16px; width: 100%; font-size: 15px; cursor: pointer; }
-
-.back { background: transparent; color: #292923; text-align: left; padding: 15px 0; }
-
-input, textarea, select { display: block; width: 100%; padding: 14px; margin: 8px 0 19px; border: 1px solid #ddd7cc; background: white; font-size: 15px; border-radius: 0; }
-
-label { font-size: 13px; color: #625e55; }
-
-.hidden { display: none; }
-
-.notice { background: white; padding: 25px; margin-top: 35px; line-height: 1.6; }
-
+footer {
+  text-align: center;
+  color: #aaa;
+  font-size: 12px;
+  margin-top: 60px;
+}
 </style>
-
 </head>
 
 <body>
 
-<main>
+<header>
+  <div class="logo">CONCEPT INTEGRATOR</div>
+  <div class="subtitle">Сообщество проектов и людей</div>
+</header>
 
-<div class="brand">CONCEPT INTEGRATOR · PHUKET</div>
+<main class="menu">
 
-<section id="home">
+  <a href="#add-project">
+    Добавить проект
+    <span>Предложить свой проект сообществу</span>
+  </a>
 
-<h1>People.<br>Ideas.<br>Connections.</h1>
+  <a href="#events">
+    Афиша событий
+    <span>Встречи, мероприятия и события</span>
+  </a>
 
-<p class="subtitle">A platform for people, projects and cultural events.</p>
-
-<div class="card">
-
-<h2>Ваш проект</h2>
-
-<p>Расскажите о своей деятельности и представьте свой проект сообществу.</p>
-
-<button onclick="showPage('project')">Добавить проект</button>
-
-</div>
-
-<div class="card">
-
-<h2>Афиша событий</h2>
-
-<p>Предложите мероприятие для публикации в нашем Telegram-канале.</p>
-
-<button onclick="showPage('event')">Добавить мероприятие</button>
-
-</div>
-
-</section>
-
-<section id="project" class="hidden">
-
-<button class="back" onclick="showPage('home')">← Назад</button>
-
-<h1>Ваш проект</h1>
-
-<p class="subtitle">Заполните информацию для рассмотрения заявки.</p>
-
-<form onsubmit="submitForm(event,'project')">
-
-<label>Название проекта *</label><input name="title" required>
-
-<label>Категория *</label><select name="category" required>
-
-<option value="">Выберите категорию</option>
-
-<option>Бизнес</option><option>Искусство и культура</option><option>Образование</option><option>Красота и здоровье</option><option>Услуги</option><option>Благотворительность</option><option>Другое</option>
-
-</select>
-
-<label>Описание проекта *</label><textarea name="description" rows="5" required></textarea>
-
-<label>Ваше имя *</label><input name="author" required>
-
-<label>Telegram или Instagram *</label><input name="contact" required>
-
-<label>Ссылка на сайт или дополнительную информацию</label><input name="website">
-
-<button type="submit">Отправить на утверждение</button>
-
-</form>
-
-</section>
-
-<section id="event" class="hidden">
-
-<button class="back" onclick="showPage('home')">← Назад</button>
-
-<h1>Ваше мероприятие</h1>
-
-<p class="subtitle">Добавьте информацию о предстоящем событии.</p>
-
-<form onsubmit="submitForm(event,'event')">
-
-<label>Название мероприятия *</label><input name="title" required>
-
-<label>Дата *</label><input type="date" name="date" required>
-
-<label>Время *</label><input type="time" name="time" required>
-
-<label>Место проведения *</label><input name="place" required>
-
-<label>Описание мероприятия *</label><textarea name="description" rows="5" required></textarea>
-
-<label>Стоимость участия</label><input name="price" placeholder="Например, 500 THB или бесплатно">
-
-<label>Имя организатора *</label><input name="author" required>
-
-<label>Контакт для регистрации *</label><input name="contact" required>
-
-<label>Ссылка на регистрацию</label><input name="website">
-
-<button type="submit">Отправить на утверждение</button>
-
-</form>
-
-</section>
-
-<section id="success" class="hidden">
-
-<h1>Спасибо!</h1>
-
-<div class="notice">Это демонстрационный прототип. Отправка заявок администратору будет подключена на следующем этапе.</div>
-
-<button style="margin-top:20px" onclick="showPage('home')">На главную</button>
-
-</section>
+  <a href="https://wa.me/66909058705" target="_blank" rel="noopener">
+    Связаться в WhatsApp
+    <span>Написать команде Concept Integrator</span>
+  </a>
 
 </main>
 
-<script>
-
-function showPage(page) {
-
- document.getElementById('home').classList.add('hidden');
-
- document.getElementById('project').classList.add('hidden');
-
- document.getElementById('event').classList.add('hidden');
-
- document.getElementById('success').classList.add('hidden');
-
- document.getElementById(page).classList.remove('hidden');
-
-}
-
-function submitForm(event, type) {
-
- event.preventDefault();
-
- showPage('success');
-
-}
-
-</script>
+<footer>
+  Concept Integrator
+</footer>
 
 </body>
-
 </html>
