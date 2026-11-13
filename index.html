@@ -165,6 +165,19 @@ message+=key+": "+value+"\n";
 }
 window.open("https://wa.me/"+phone+"?text="+encodeURIComponent(message),"_blank");
 }
+ function openEventsChannel() {
+  const tg = window.Telegram && window.Telegram.WebApp;
+  const url = 'https://t.me/concept_int/22';
+
+  if (tg) {
+    tg.openTelegramLink(url);
+    setTimeout(function() {
+      tg.close();
+    }, 700);
+  } else {
+    window.location.href = url;
+  }
+}
 </script>
 </body>
 </html>
